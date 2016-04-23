@@ -8,7 +8,7 @@
 #define DHTTYPE DHT22
 
 const char* ssid = "teaparty";
-const char* password = "we're0-8crazy";
+const char* password = "";
 
 ESP8266WebServer server(80);
 
@@ -26,7 +26,7 @@ void handleDHT() {
   float t = dht.readTemperature();
   // Read temperature as Fahrenheit (isFahrenheit = true)
   float f = dht.readTemperature(true);
-  
+
   // Check if any reads failed and exit early (to try again).
   if (isnan(h) || isnan(t) || isnan(f)) {
     Serial.println("Failed to read from DHT sensor!");
