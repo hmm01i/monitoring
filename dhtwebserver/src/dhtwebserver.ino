@@ -7,7 +7,10 @@
 #define DHTPIN 2
 #define DHTTYPE DHT22
 
-const char* ssid = "teaparty";
+const char* vers="0.1.1";
+const char* about="dhtwebserver.ino";
+
+const char* ssid = "";
 const char* password = "";
 
 ESP8266WebServer server(80);
@@ -17,7 +20,13 @@ const int led = LED_BUILTIN;
 DHT dht(DHTPIN, DHTTYPE);
 
 void handleRoot() {
-  server.send(200, "text/plain", "hello from esp8266!");
+  String message = "Hello from ESP8266!\n";
+  message += vers;
+  message += "\n";
+  message += about;
+  message += "\n";
+  Serial.println("[200]: /");
+  server.send(200, "text/plain", message);
 }
 
 void handleDHT() {
@@ -50,6 +59,7 @@ void handleDHT() {
   message += " *C ";
   message += hif;
   message += " *F\n";
+  Serial.println("[200]: /dht");
   server.send(200, "text/plain", message);
 }
 void handleNotFound(){
@@ -65,8 +75,8 @@ void handleNotFound(){
   for (uint8_t i=0; i<server.args(); i++){
     message += " " + server.argName(i) + ": " + server.arg(i) + "\n";
   }
+  Serial.println("[404]: invalid request");
   server.send(404, "text/plain", message);
-  digitalWrite(led, 0);
 }
 
 void setup(void){
