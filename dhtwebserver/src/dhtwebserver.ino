@@ -4,7 +4,7 @@
 #include <ESP8266mDNS.h>
 #include <DHT.h>
 
-#define DHTPIN 2
+#define DHTPIN 1
 #define DHTTYPE DHT22
 
 const char* vers="0.1.1";
@@ -19,6 +19,7 @@ const int led = LED_BUILTIN;
 
 DHT dht(DHTPIN, DHTTYPE);
 
+// Server paths
 void handleRoot() {
   String message = "Hello from ESP8266!\n";
   message += vers;
